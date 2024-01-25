@@ -12,6 +12,30 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    {% if app.user %}
+    <header>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('app_entreprise_index') }}">Entreprise</a></li>
+                    <li><a href="{{ path('app_client_index') }}">Client</a></li>
+                    <li><a href="{{ path('app_logout')}}">Deconnexion</a></li>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <li>TEST</li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        {% else %}
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                </ul>
+            </nav>
+        </header>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
